@@ -20,11 +20,8 @@ require('plugins/lazy').setup({
     require('plugins/nvim-lspconfig'),
     require('plugins/nvim-cmp'),
     -- Autopairs
-    {
-        'windwp/nvim-autopairs',
-        event = 'InsertEnter',
-        opts = {}
-    }
+    require('plugins/autopairs'),
+
 })
 
 -- colorscheme
