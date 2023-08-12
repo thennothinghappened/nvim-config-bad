@@ -8,6 +8,8 @@ require('plugins/lazy').setup({
     },
     -- Indentation guides
     { 'lukas-reineke/indent-blankline.nvim' },
+    -- Rainbow brackets
+    { 'hiphish/rainbow-delimiters.nvim' },
     -- File Tree
     require('plugins/nvim-tree'),
     -- Syntax highlighting
