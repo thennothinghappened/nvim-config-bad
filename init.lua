@@ -15,7 +15,16 @@ require('plugins/lazy').setup({
     -- Tabs
     require('plugins/barbar'),
     -- Nice info line :)
-    require('plugins/lualine')
+    require('plugins/lualine'),
+    -- LSP
+    require('plugins/nvim-lspconfig'),
+    require('plugins/nvim-cmp'),
+    -- Autopairs
+    {
+        'windwp/nvim-autopairs',
+        event = 'InsertEnter',
+        opts = {}
+    }
 })
 
 -- colorscheme
@@ -30,7 +39,6 @@ vim.o.tabstop = 4
 vim.o.shiftwidth = 4
 -- clipboard
 vim.go.clipboard = 'unnamedplus'
-
 
 -- Init all keybinds
 keybinds.nvim_tree()
