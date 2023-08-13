@@ -23,7 +23,8 @@ require('plugins/lazy').setup({
     require('plugins/nvim-cmp'),
     -- Autopairs
     require('plugins/autopairs'),
-
+    -- Writing protected files
+    { 'lambdalisue/suda.vim' }
 })
 
 -- colorscheme
