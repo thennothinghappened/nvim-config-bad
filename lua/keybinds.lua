@@ -14,6 +14,16 @@ local function general()
     vim.go.whichwrap = 'b,s,<,>,[,]'
 end
 
+-- Neovide-specific (fix MacOS paste)
+local function neovide()
+    --vim.keymap.set('', '<D-v>', '+p<CR>', opts('Neovide: MacOS clipboard'))
+    vim.g.neovide_input_use_logo = 1
+    vim.api.nvim_set_keymap('', '<D-v>', 'p<CR>', { noremap = true, silent = true})
+    vim.api.nvim_set_keymap('!', '<D-v>', '<C-R>+', { noremap = true, silent = true})
+    vim.api.nvim_set_keymap('t', '<D-v>', '<C-R>+', { noremap = true, silent = true})
+    vim.api.nvim_set_keymap('v', '<D-v>', '<C-R>+', { noremap = true, silent = true})
+end
+
 return {
     -- Keybinds for nvim-tree
     nvim_tree = function ()
@@ -21,5 +31,8 @@ return {
     end,
 
     -- General keybinds
-    general = general
+    general = general,
+
+    -- Neovide
+    neovide = neovide
 }

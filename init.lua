@@ -32,7 +32,7 @@ vim.cmd.colorscheme('onedark')
 -- line numbers
 vim.wo.number = true
 -- scroll speed
-vim.go.mousescroll = 'ver:1,hor:2'
+vim.go.mousescroll = 'ver:1,hor:1'
 -- indentation
 vim.o.expandtab = true
 vim.o.tabstop = 4
@@ -43,3 +43,7 @@ vim.go.clipboard = 'unnamedplus'
 -- Init all keybinds
 keybinds.nvim_tree()
 keybinds.general()
+
+if vim.g.neovide then
+    keybinds.neovide()
+end
