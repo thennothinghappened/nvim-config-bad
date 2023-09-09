@@ -9,12 +9,12 @@ local function get_os()
 end
 
 --- Get the keys in a table
---- @param table table
-local function table_keys(table)
+--- @param tbl table
+local function table_keys(tbl)
     local keys = {}
 
-    for key, _ in pairs(table) do
-        keys.insert(key)
+    for key, _ in pairs(tbl) do
+        table.insert(keys, key)
     end
 
     return keys
