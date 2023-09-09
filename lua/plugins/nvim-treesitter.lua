@@ -11,5 +11,10 @@ return {
             highlight = { enable = true },
             indent = { enable = true },
         })
+
+
+        -- Prioritise Treesitter highlighting over LSP
+        vim.highlight.priorities.semantic_tokens = 99
+        
     end
 }
