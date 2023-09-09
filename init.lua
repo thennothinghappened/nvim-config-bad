@@ -19,6 +19,8 @@ require('plugins/lazy').setup({
     -- Nice info line :)
     require('plugins/lualine'),
     -- LSP
+    require('plugins/mason'),
+    require('plugins/mason-lspconfig'),
     require('plugins/nvim-lspconfig'),
     require('plugins/nvim-cmp'),
     -- Autopairs
