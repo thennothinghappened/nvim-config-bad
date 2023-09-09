@@ -1,5 +1,7 @@
 local os = require('helper').os
 
+local normal = '<C-o>'
+
 --- General keybinds
 local function general()
     -- Set wrap behaviour for arrowing around
@@ -9,12 +11,12 @@ local function general()
     if os.macOS then
         -- Command-Z undo
         vim.keymap.set({ '', 't' }, '<D-z>', 'u', { silent = true })
-        vim.keymap.set('i', '<D-z>', '<C-o>:u<CR>', { silent = true })
+        vim.keymap.set('i', '<D-z>', normal .. ':u<CR>', { silent = true })
 
         -- Command-Shift-Z redo
         -- TODO: this doesn't work :(
         vim.keymap.set('', '<D-S-v>', '<C-r>', { silent = true })
-        vim.keymap.set('!', '<D-S-v>', '<C-o>:<C-r><CR>', { silent = true })
+        vim.keymap.set('!', '<D-S-v>', normal .. ':<C-r><CR>', { silent = true })
 
         -- Command-A select all
         vim.keymap.set('n', '<D-a>', 'ggVG', { silent = true })
@@ -23,12 +25,32 @@ local function general()
     end
 end
 
+--- Comment toggle with Cmd-/
+local function comment()
+    if os.macOS then
+        vim.keymap.set('v', '<D-/>', 'gc', { silent = true, remap = true })
+        vim.keymap.set('n', '<D-/>', 'gcc', { silent = true, remap = true })
+        vim.keymap.set('!', '<D-/>', normal .. 'gcc', { silent = true, remap = true })
+    end
+end
+
 --- Right click menu
 local function rightclick()
+
+    local div_index = 2
+    --- Add a divider
+    --- @param modes table<string>
+    local function div(modes)
+        for _, mode in pairs(modes) do
+            vim.cmd[mode .. 'noremenu'] { 'PopUp.-' .. div_index .. '-', '<Nop>' }
+        end
+        div_index = div_index + 1
+    end
+
     -- Remove placeholder
     vim.cmd.aunmenu { 'PopUp.How-to\\ disable\\ mouse' }
 
-    -- Add our items
+    --- Add our items ---
 
     -- LSP references
     vim.cmd.anoremenu { 'PopUp.Documentation', ':lua require(\'hover\').hover()<CR>' }
@@ -37,8 +59,16 @@ local function rightclick()
     vim.cmd.anoremenu { 'PopUp.Rename', ':lua vim.lsp.buf.rename()<CR>' }
 
     -- LSP format file
-    vim.cmd.anoremenu { 'PopUp.-2-', '<Nop>' }
-    vim.cmd.anoremenu { 'PopUp.Format\\ file', ':lua vim.lsp.buf.format()<CR>' }
+    div { 'n' }
+    vim.cmd.nnoremenu { 'PopUp.Format\\ file', ':lua vim.lsp.buf.format()<CR>' }
+
+    -- Comment
+    div { 'i', 'n', 'v' }
+    local comment_binds = require('plugins/comment').binds
+
+    vim.cmd.vmenu { 'PopUp.Toggle\\ comment', comment_binds.visual.line }
+    vim.cmd.nmenu { 'PopUp.Toggle\\ comment', comment_binds.normal.line }
+    vim.cmd.imenu { 'PopUp.Toggle\\ comment', normal .. comment_binds.normal.line }
 end
 
 --- Neovide-specific (fix MacOS copy/paste)
@@ -70,5 +100,8 @@ return {
     rightclick = rightclick,
 
     -- Neovide
-    neovide = neovide
+    neovide = neovide,
+
+    -- Comment
+    comment = comment
 }

@@ -29,7 +29,9 @@ require('plugins/lazy').setup({
     -- Autopairs
     require('plugins/autopairs'),
     -- Writing protected files
-    { 'lambdalisue/suda.vim' }
+    { 'lambdalisue/suda.vim' },
+    -- Comment utils
+    require('plugins/comment')
 })
 
 -- colorscheme
@@ -49,6 +51,7 @@ vim.go.clipboard = 'unnamedplus'
 keybinds.nvim_tree()
 keybinds.general()
 keybinds.rightclick()
+keybinds.comment()
 
 if vim.g.neovide then
     keybinds.neovide()
