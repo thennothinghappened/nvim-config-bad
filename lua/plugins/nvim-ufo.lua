@@ -8,7 +8,7 @@ return {
         require('ufo').setup()
 
         vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
-        vim.o.foldcolumn = '3'
+        vim.o.foldcolumn = '1'
         vim.wo.foldlevel = 99
 
     end
