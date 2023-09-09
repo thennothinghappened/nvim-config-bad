@@ -15,7 +15,23 @@ local function general()
         -- TODO: this doesn't work :(
         vim.keymap.set('', '<D-S-v>', '<C-r>', { silent = true })
         vim.keymap.set('!', '<D-S-v>', '<C-o>:<C-r><CR>', { silent = true })
+
+        -- Command-A select all
+        vim.keymap.set('n', '<D-a>', 'ggVG', { silent = true })
+        vim.keymap.set('v', '<D-a>', 'gg0oG$', { silent = true })
+        vim.keymap.set('!', '<D-a>', '<C-Home><C-O>VG', { silent = true })
     end
+end
+
+--- Right click menu
+local function rightclick()
+    -- Remove placeholder
+    vim.cmd.aunmenu { 'PopUp.How-to\\ disable\\ mouse' }
+
+    -- Add our items
+    vim.cmd.anoremenu { 'PopUp.Goto\\ Definition', ':lua vim.lsp.buf.definition()<CR>' }
+    vim.cmd.anoremenu { 'PopUp.References', ':lua vim.lsp.buf.references()<CR>' }
+    vim.cmd.anoremenu { 'PopUp.Rename', ':lua vim.lsp.buf.rename()<CR>' }
 end
 
 --- Neovide-specific (fix MacOS copy/paste)
@@ -41,6 +57,7 @@ return {
 
     -- General keybinds
     general = general,
+    rightclick = rightclick,
 
     -- Neovide
     neovide = neovide

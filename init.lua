@@ -45,6 +45,7 @@ vim.go.clipboard = 'unnamedplus'
 -- Init all keybinds
 keybinds.nvim_tree()
 keybinds.general()
+keybinds.rightclick()
 
 if vim.g.neovide then
     keybinds.neovide()
