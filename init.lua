@@ -23,6 +23,7 @@ require('plugins/lazy').setup({
     require('plugins/mason-lspconfig'),
     require('plugins/nvim-lspconfig'),
     require('plugins/nvim-cmp'),
+    require('plugins/hover'),
     -- Autopairs
     require('plugins/autopairs'),
     -- Writing protected files
