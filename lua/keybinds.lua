@@ -18,11 +18,15 @@ local function general()
     end
 end
 
---- Neovide-specific (fix MacOS paste)
+--- Neovide-specific (fix MacOS copy/paste)
 local function neovide()
     if os.macOS then
         vim.g.neovide_input_use_logo = 1
 
+        -- Copy
+        vim.keymap.set('v', '<D-c>', 'y', { silent = true, nowait = true })
+
+        -- Paste
         vim.keymap.set('', '<D-v>', 'p<CR>', { silent = true, nowait = true })
         vim.keymap.set({ '!', 'v' }, '<D-v>', '<C-R>+', { silent = true, nowait = true })
     end
