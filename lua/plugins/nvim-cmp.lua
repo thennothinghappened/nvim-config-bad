@@ -20,6 +20,13 @@ return {
         -- https://github.com/hrsh7th/nvim-cmp/issues/373#issuecomment-1434284568
         capabilities.textDocument.completion.completionItem.snippetSupport = false
 
+        -- ufo
+        -- would like to move this where it more belongs, but oh well.
+        capabilities.textDocument.foldingRange = {
+            dynamicRegistration = false,
+            lineFoldingOnly = true
+        }
+
         -- Init servers
         for server, config in pairs(require('../lsp-shared').servers) do
             config.capabilities = capabilities

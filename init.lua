@@ -24,6 +24,8 @@ require('plugins/lazy').setup({
     require('plugins/nvim-lspconfig'),
     require('plugins/nvim-cmp'),
     require('plugins/hover'),
+    -- Code folding
+    require('plugins/nvim-ufo'),
     -- Autopairs
     require('plugins/autopairs'),
     -- Writing protected files
