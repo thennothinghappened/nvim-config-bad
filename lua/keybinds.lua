@@ -80,8 +80,8 @@ local function neovide()
         vim.keymap.set('v', '<D-c>', 'y', { silent = true, nowait = true })
 
         -- Paste
-        vim.keymap.set('', '<D-v>', 'p<CR>', { silent = true, nowait = true })
-        vim.keymap.set({ '!', 'v' }, '<D-v>', '<C-R>+', { silent = true, nowait = true })
+        vim.keymap.set('', '<D-v>', 'p', { silent = true, nowait = true })
+        vim.keymap.set('!', '<D-v>', normal .. 'p', { silent = true, nowait = true })
     end
 end
 
