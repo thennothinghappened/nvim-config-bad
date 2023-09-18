@@ -34,18 +34,8 @@ require('plugins/lazy').setup({
     require('plugins/comment')
 })
 
--- colorscheme
-vim.cmd.colorscheme('onedark')
--- line numbers
-vim.wo.number = true
--- scroll speed
-vim.go.mousescroll = 'ver:1,hor:1'
--- indentation
-vim.o.expandtab = true
-vim.o.tabstop = 4
-vim.o.shiftwidth = 4
--- clipboard
-vim.go.clipboard = 'unnamedplus'
+-- Options
+require('opts')
 
 -- Init all keybinds
 keybinds.nvim_tree()
