@@ -5,8 +5,20 @@ return {
         'neovim/nvim-lspconfig',
         'hrsh7th/cmp-nvim-lsp',
         'hrsh7th/cmp-path',
-        'L3MON4D3/LuaSnip',
         'saadparwaiz1/cmp_luasnip',
+        {
+            'L3MON4D3/LuaSnip',
+
+            dependencies = {
+                'saadparwaiz1/cmp_luasnip',
+            },
+
+            config = function ()
+                local luasnip = require 'luasnip'
+                require('luasnip.loaders.from_vscode').lazy_load()
+                luasnip.config.setup {}
+            end
+        },
         'onsails/lspkind.nvim'
     },
 
@@ -15,9 +27,7 @@ return {
         local lspconfig = require('lspconfig')
         local cmp = require('cmp')
         local lspkind = require('lspkind')
-
-        -- https://github.com/hrsh7th/nvim-cmp/issues/373#issuecomment-1434284568
-        capabilities.textDocument.completion.completionItem.snippetSupport = false
+        local luasnip = require('luasnip')
 
         -- ufo
         -- would like to move this where it more belongs, but oh well.
@@ -35,24 +45,21 @@ return {
         cmp.setup({
             sources = {
                 { name = 'nvim_lsp' },
-                { name = 'path' }
+                { name = 'path' },
+                { name = 'luasnip' }
             },
 
             formatting = {
                 format = lspkind.cmp_format {
                     mode = 'symbol',
                     maxwidth = 50,
-                    ellipsis_char = '...',
-                    -- TODO: what was this for?
-                    before = function(entry, vim_item)
-                        return vim_item
-                    end
+                    ellipsis_char = '...'
                 }
             },
 
             snippet = {
                 expand = function(args)
-                    require('luasnip').lsp_expand(args.body)
+                    luasnip.lsp_expand(args.body)
                 end
             },
 
@@ -63,8 +70,36 @@ return {
                 ['<C-Space>'] = cmp.mapping.complete(),
                 ['<C-e>'] = cmp.mapping.abort(),
                 -- Select the current choice on enter
-                ['<CR>'] = cmp.mapping.confirm({ select = true })
+                ['<CR>'] = cmp.mapping.confirm({ select = true }),
+                -- Scrolling options
+                ['<Tab>'] = cmp.mapping(function(fallback)
+                    if cmp.visible() then
+                        cmp.select_next_item()
+                    elseif luasnip.expand_or_locally_jumpable() then
+                        luasnip.expand_or_jump()
+                    else
+                        fallback()
+                    end
+                end, { 'i', 's' }),
+                ['<S-Tab>'] = cmp.mapping(function(fallback)
+                    if cmp.visible() then
+                        cmp.select_prev_item()
+                    elseif luasnip.locally_jumpable(-1) then
+                        luasnip.jump(-1)
+                    else
+                        fallback()
+                    end
+                end, { 'i', 's' }),
             })
+        })
+
+        cmp.setup.cmdline(':', {
+            mapping = cmp.mapping.preset.cmdline(),
+            sources = cmp.config.sources({
+                    { name = 'path' }
+                }, {
+                    { name = 'cmdline' }
+                })
         })
     end
 }
