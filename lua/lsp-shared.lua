@@ -36,8 +36,18 @@ return {
         rust_analyzer = {},
         clangd = {},
         cssls = {},
-        html = {},
-        tsserver = {}
+        html = {
+            format = {
+                templating = true,
+                wrapAttributes = 'auto'
+            },
+            hover = {
+                documentation = true,
+                references = true
+            }
+        },
+        tsserver = {},
+        biome = {}
     },
 
     -- Helper to setup icons
