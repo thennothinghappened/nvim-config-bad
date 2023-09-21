@@ -24,7 +24,15 @@ end
 return {
     -- Configuration of the LSP servers we need
     servers = {
-        lua_ls = {},
+        lua_ls = {
+            settings = {
+                Lua = {
+                    diagnostics = {
+                        globals = { 'vim' }
+                    }
+                }
+            }
+        },
         rust_analyzer = {},
         clangd = {},
         cssls = {},
