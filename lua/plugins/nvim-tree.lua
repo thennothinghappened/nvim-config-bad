@@ -6,6 +6,9 @@ return {
         diagnostics = {
             enable = true,
             show_on_dirs = false
+        },
+        filters = {
+            dotfiles = true
         }
     },
 }
