@@ -7,31 +7,8 @@ local function general()
     -- Set wrap behaviour for arrowing around
     vim.go.whichwrap = 'b,s,<,>,[,]'
 
-    -- Blasphemy
-    if os.macOS then
-        -- Command-Z undo
-        vim.keymap.set({ '', 't' }, '<D-z>', 'u', { silent = true })
-        vim.keymap.set('i', '<D-z>', normal .. ':u<CR>', { silent = true })
-
-        -- Command-Shift-Z redo
-        -- TODO: this doesn't work :(
-        vim.keymap.set('', '<D-S-v>', '<C-r>', { silent = true })
-        vim.keymap.set('!', '<D-S-v>', normal .. ':<C-r><CR>', { silent = true })
-
-        -- Command-A select all
-        vim.keymap.set('n', '<D-a>', 'ggVG', { silent = true })
-        vim.keymap.set('v', '<D-a>', 'gg0oG$', { silent = true })
-        vim.keymap.set('!', '<D-a>', '<C-Home><C-O>VG', { silent = true })
-    end
-end
-
---- Comment toggle with Cmd-/
-local function comment()
-    if os.macOS then
-        vim.keymap.set('v', '<D-/>', 'gc', { silent = true, remap = true })
-        vim.keymap.set('n', '<D-/>', 'gcc', { silent = true, remap = true })
-        vim.keymap.set('!', '<D-/>', normal .. 'gcc', { silent = true, remap = true })
-    end
+    -- Custom binds
+    vim.g.mapleader = ' '
 end
 
 --- Right click menu
