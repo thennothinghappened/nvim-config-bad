@@ -24,6 +24,8 @@ require('plugins/lazy').setup({
     require('plugins/nvim-lspconfig'),
     require('plugins/nvim-cmp'),
     require('plugins/hover'),
+    -- Telescope
+    require('plugins/telescope'),
     -- Code folding
     require('plugins/nvim-ufo'),
     -- Autopairs
@@ -41,7 +43,6 @@ require('opts')
 keybinds.nvim_tree()
 keybinds.general()
 keybinds.rightclick()
-keybinds.comment()
 
 if vim.g.neovide then
     keybinds.neovide()
