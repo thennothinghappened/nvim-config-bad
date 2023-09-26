@@ -8,7 +8,7 @@ return {
             show_on_dirs = false
         },
         filters = {
-            dotfiles = true
+            dotfiles = false
         }
     },
 }
