@@ -31,7 +31,9 @@ require('plugins/lazy').setup({
 
     require('plugins/comment'),
 
-    require('plugins/barbar')
+    require('plugins/barbar'),
+
+    require('plugins/gitsigns')
 })
 
 require('opts')

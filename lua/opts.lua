@@ -15,3 +15,4 @@ vim.wo.wrap = false
 vim.go.clipboard = 'unnamedplus'
 
 vim.o.guifont = 'Monaco:h12'
+
