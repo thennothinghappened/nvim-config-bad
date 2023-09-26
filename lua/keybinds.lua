@@ -2,9 +2,6 @@ local os = require('helper').os
 
 local normal = '<C-o>'
 
--- Set wrap behaviour for arrowing around
-vim.go.whichwrap = 'b,s,<,>,[,]'
-
 -- Custom binds
 vim.g.mapleader = ' '
 
