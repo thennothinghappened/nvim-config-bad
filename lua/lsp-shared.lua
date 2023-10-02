@@ -47,7 +47,7 @@ return {
             }
         },
         tsserver = {},
-        biome = {}
+        -- biome = {}
     },
 
     -- Helper to setup icons

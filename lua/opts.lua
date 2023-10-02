@@ -3,7 +3,7 @@ vim.cmd.colorscheme('onedark')
 
 vim.wo.number = true
 vim.wo.rnu = true
-vim.go.scrolloff = 8
+vim.go.scrolloff = 4
 
 vim.go.mousescroll = 'ver:1,hor:1'
 

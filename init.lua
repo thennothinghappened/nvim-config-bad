@@ -19,6 +19,14 @@ require('plugins/lazy').setup({
     require('plugins/mason-lspconfig'),
     require('plugins/nvim-lspconfig'),
     require('plugins/nvim-cmp'),
+    {
+        "ray-x/lsp_signature.nvim",
+        event = "VeryLazy",
+        opts = {},
+        config = function(_, opts)
+            require('lsp_signature').setup(opts)
+        end
+    },
     require('plugins/hover'),
 
     require('plugins/telescope'),

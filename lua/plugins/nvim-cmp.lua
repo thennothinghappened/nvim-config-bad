@@ -68,7 +68,7 @@ return {
                 -- Trackpad-optimised scroll speed
                 ['<C-b>'] = cmp.mapping.scroll_docs(-1),
                 ['<C-f>'] = cmp.mapping.scroll_docs( 1),
-                ['<C-Space>'] = cmp.mapping.complete(),
+                ['<C-Enter>'] = cmp.mapping.complete(),
                 ['<C-e>'] = cmp.mapping.abort(),
                 -- Select the current choice on enter
                 ['<CR>'] = cmp.mapping.confirm({ select = true }),
