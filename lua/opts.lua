@@ -1,6 +1,6 @@
 
 vim.opt.background = 'dark'
-vim.cmd.colorscheme('oxocarbon')
+vim.cmd.colorscheme('kanagawa')
 
 vim.wo.number = true
 vim.wo.rnu = true

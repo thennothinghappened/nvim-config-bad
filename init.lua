@@ -1,12 +1,7 @@
 require('plugins/lazy').setup({
-    {
-        'navarasu/onedark.nvim',
-        lazy = true
-    },
-
-    {
-        'nyoom-engineering/oxocarbon.nvim'
-    },
+    require('plugins/themes/onedark'),
+    require('plugins/themes/oxocarbon'),
+    require('plugins/themes/kanagawa'),
 
     -- { 'lukas-reineke/indent-blankline.nvim' },
     --
