@@ -1,5 +1,6 @@
 
-vim.cmd.colorscheme('onedark')
+vim.opt.background = 'dark'
+vim.cmd.colorscheme('oxocarbon')
 
 vim.wo.number = true
 vim.wo.rnu = true

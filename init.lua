@@ -4,9 +4,13 @@ require('plugins/lazy').setup({
         lazy = true
     },
 
-    { 'lukas-reineke/indent-blankline.nvim' },
+    {
+        'nyoom-engineering/oxocarbon.nvim'
+    },
 
-    { 'hiphish/rainbow-delimiters.nvim' },
+    -- { 'lukas-reineke/indent-blankline.nvim' },
+    --
+    -- { 'hiphish/rainbow-delimiters.nvim' },
 
     require('plugins/nvim-tree'),
 
