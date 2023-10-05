@@ -30,6 +30,8 @@ return {
         local lspkind = require('lspkind')
         local luasnip = require('luasnip')
 
+        local bindings = require('keybinds/lsp')
+
         -- ufo
         -- would like to move this where it more belongs, but oh well.
         capabilities.textDocument.foldingRange = {
@@ -37,9 +39,14 @@ return {
             lineFoldingOnly = true
         }
 
+        local function on_attach(client, bufnr)
+            bindings.bindingsLSPAttach(bufnr)
+        end
+
         -- Init servers
         for server, config in pairs(require('../lsp-shared').servers) do
             config.capabilities = capabilities
+            config.on_attach = on_attach
             lspconfig[server].setup(config)
         end
 
@@ -60,38 +67,11 @@ return {
 
             snippet = {
                 expand = function(args)
-                    luasnip.lsp_expand(args.body)
+                    -- luasnip.lsp_expand(args.body)
                 end
             },
 
-            mapping = cmp.mapping.preset.insert({
-                -- Trackpad-optimised scroll speed
-                ['<C-b>'] = cmp.mapping.scroll_docs(-1),
-                ['<C-f>'] = cmp.mapping.scroll_docs( 1),
-                ['<C-Enter>'] = cmp.mapping.complete(),
-                ['<C-e>'] = cmp.mapping.abort(),
-                -- Select the current choice on enter
-                ['<CR>'] = cmp.mapping.confirm({ select = true }),
-                -- Scrolling options
-                ['<Tab>'] = cmp.mapping(function(fallback)
-                    if cmp.visible() then
-                        cmp.select_next_item()
-                    elseif luasnip.expand_or_locally_jumpable() then
-                        luasnip.expand_or_jump()
-                    else
-                        fallback()
-                    end
-                end, { 'i', 's' }),
-                ['<S-Tab>'] = cmp.mapping(function(fallback)
-                    if cmp.visible() then
-                        cmp.select_prev_item()
-                    elseif luasnip.locally_jumpable(-1) then
-                        luasnip.jump(-1)
-                    else
-                        fallback()
-                    end
-                end, { 'i', 's' }),
-            })
+            mapping = bindings.bindingsCmp(cmp)
         })
 
         cmp.setup.cmdline(':', {

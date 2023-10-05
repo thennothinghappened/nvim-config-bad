@@ -22,5 +22,6 @@ end
 
 return {
     os = get_os(),
-    table_keys = table_keys
+    table_keys = table_keys,
+    normal = '<C-o>'
 }

@@ -9,6 +9,7 @@ local binds = {
         block = 'gb'
     }
 }
+-- TODO: move this
 
 return {
     'numToStr/Comment.nvim',
