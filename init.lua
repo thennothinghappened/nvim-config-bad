@@ -1,46 +1,32 @@
-require('plugins/lazy').setup({
-    require('plugins/themes/onedark'),
-    require('plugins/themes/oxocarbon'),
-    require('plugins/themes/kanagawa'),
+require('plugins.lazy').setup({
+    require('plugins.themes.themes'),
 
-    -- { 'lukas-reineke/indent-blankline.nvim' },
+    -- { 'lukas-reineke.indent-blankline.nvim' },
     --
-    -- { 'hiphish/rainbow-delimiters.nvim' },
+    -- { 'hiphish.rainbow-delimiters.nvim' },
 
-    require('plugins/nvim-tree'),
+    require('plugins.nvim-tree'),
 
-    require('plugins/nvim-treesitter'),
+    require('plugins.treesitter.nvim-treesitter'),
+    require('plugins.treesitter.nvim-ufo'),
 
-    require('plugins/lualine'),
+    require('plugins.lualine'),
 
-    -- LSP
-    require('plugins/mason'),
-    require('plugins/mason-lspconfig'),
-    require('plugins/nvim-lspconfig'),
-    require('plugins/nvim-cmp'),
-    {
-        "ray-x/lsp_signature.nvim",
-        event = "VeryLazy",
-        opts = {},
-        config = function(_, opts)
-            require('lsp_signature').setup(opts)
-        end
-    },
-    require('plugins/hover'),
+    require('plugins.lsp.lsp'),
 
-    require('plugins/telescope'),
+    require('plugins.telescope'),
 
-    require('plugins/nvim-ufo'),
-
-    require('plugins/autopairs'),
+    require('plugins.autopairs'),
 
     { 'lambdalisue/suda.vim' },
 
-    require('plugins/comment'),
+    require('plugins.comment'),
 
-    require('plugins/barbar'),
+    require('plugins.barbar'),
 
-    require('plugins/gitsigns')
+    require('plugins.gitsigns'),
+
+    require('plugins.whichkey')
 })
 
 require('opts')
