@@ -15,9 +15,15 @@ return function(servers, bindings)
                     'saadparwaiz1/cmp_luasnip',
                 },
 
-                config = function ()
-                    local luasnip = require 'luasnip'
-                    require('luasnip.loaders.from_vscode').lazy_load()
+                config = function()
+                    local luasnip = require('luasnip')
+
+                    require('luasnip.loaders.from_vscode').lazy_load({
+                        paths = {
+                            vim.fn.stdpath('config') .. '/snippets',
+                        }
+                    })
+
                     luasnip.config.setup {}
                 end
             },

@@ -47,6 +47,7 @@ return {
             }
         },
         tsserver = {},
+        pyright = {},
         -- biome = {}
     },
 
