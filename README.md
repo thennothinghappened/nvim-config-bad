@@ -1,4 +1,5 @@
 # Neovim config
+
 Welcome to my awful Neovim config!
 
 I'm very new to Neovim and the learning curve of the bindings kept me away from it
@@ -11,9 +12,23 @@ so will probably be rewritten at some point, but it works for now(tm)
 
 ## Installation
 
-Install should work out of the box, assuming you already have NodeJS and Rust installed.
+### Dependencies
+
+#### MacOS
+
+```bash
+brew install node rustup
 ```
-$ git clone https://github.com/thennothinghappened/nvim-config-bad ~/.config/nvim
-$ nvim .
+
+#### Windows
+
+```pwsh
+winget install OpenJS.NodeJS Rustlang.Rustup LLVM.LLVM
+```
+
+### Installation command
+
+```bash
+git clone https://github.com/thennothinghappened/nvim-config-bad ~/.config/nvim && nvim .
 ```
 
