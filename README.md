@@ -1,34 +1,20 @@
-# Neovim config
+# neovim config
 
-Welcome to my awful Neovim config!
+Welcome to my new and bare-bones neovim config!
 
-I'm very new to Neovim and the learning curve of the bindings kept me away from it
-for quite a while. Recently decided to give it a proper go rather than delegating it to
-the "if I'm in a terminal and there's nothing else" category, and enjoying it
-immensely.
+I'm starting this over as I had intended to for a while since the first attempt didn't go too well -
+essentially it grew faster than it should've for me to learn properly, making it too much trouble
+to work with everything at once rather than build up slowly. Given that, I'm starting again with
+something much simpler to get familiar with the *editor* as I should, before jumping into
+all the customisation.
 
-This is my config, even over a couple days work its already accumulated debt structurally,
-so will probably be rewritten at some point, but it works for now(tm)
+We'll see how it goes!
 
 ## Installation
 
-### Dependencies
-
-#### MacOS
-
-```bash
-brew install node rustup
-```
-
-#### Windows
-
-```pwsh
-winget install OpenJS.NodeJS Rustlang.Rustup LLVM.LLVM
-```
-
-### Installation command
+The config is currently only really setup to work on my Mac. When I'm next using a different machine
+that'll change as needed.
 
 ```bash
 git clone https://github.com/thennothinghappened/nvim-config-bad ~/.config/nvim && nvim .
 ```
-

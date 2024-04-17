@@ -1,37 +1,132 @@
 
--- This config really needs to start from scratch, this is horrendous.
+-------------------------
+-- Bootstrap lazy.nvim --
+-------------------------
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 
-require('plugins.lazy').setup({
-    require('plugins.themes.themes'),
+if not vim.loop.fs_stat(lazypath) then
+    vim.fn.system({
+        "git",
+        "clone",
+        "--filter=blob:none",
+        "https://github.com/folke/lazy.nvim.git",
+        "--branch=stable",
+        lazypath,
+    })
+end
 
-    -- { 'lukas-reineke.indent-blankline.nvim' },
-    --
-    -- { 'hiphish.rainbow-delimiters.nvim' },
+vim.opt.rtp:prepend(lazypath)
 
-    require('plugins.nvim-tree'),
+-------------------------
+---   Setup Plugins   ---
+-------------------------
+require('lazy').setup({
+    
+    --- Themes ---
+    {
+        'rebelot/kanagawa.nvim',
+    
+        opts = {
+            background = {
+                dark = 'wave'
+            },
+            dimInactive = false
+        }
+    },
 
-    require('plugins.treesitter.nvim-treesitter'),
-    require('plugins.treesitter.nvim-ufo'),
+    --- Language Support ---
+    {
+        'nvim-treesitter/nvim-treesitter',
 
-    require('plugins.lualine'),
+        build = ':TSUpdate',
+        event = { 'BufReadPost', 'BufNewFile' },
+        cmd = { 'TSUpdateSync' },
 
-    require('plugins.lsp.lsp'),
+        config = function()
 
-    require('plugins.telescope'),
+            require('nvim-treesitter.configs').setup({
+                ensure_installed = {
+                    'lua', 'javascript', 'html', 'css', 'c'
+                },
+                highlight = { enable = true },
+                indent = { enable = true },
+            })
+    
+            -- Prioritise Treesitter highlighting over LSP.
+            vim.highlight.priorities.semantic_tokens = 99
 
-    require('plugins.autopairs'),
+        end
+    },
 
-    { 'lambdalisue/suda.vim' },
+    --- General Plugins ---
+    {
+        'nvim-telescope/telescope.nvim',
+        branch = '0.1.x',
+        
+        dependencies = {
+            'nvim-lua/plenary.nvim',
+            'BurntSushi/ripgrep',
+            'nvim-treesitter/nvim-treesitter'
+        },
+    
+        opts = {
 
-    require('plugins.comment'),
+            defaults = {
+                mappings = {
 
-    require('plugins.barbar'),
+                }
+            },
 
-    require('plugins.gitsigns'),
+            pickers = {
 
-    require('plugins.whichkey'),
+            }
+
+        }
+    }
 
 })
 
-require('opts')
-require('keybinds')
+-------------------------
+---      Options      ---
+-------------------------
+
+vim.opt.background = 'dark'
+vim.cmd.colorscheme('kanagawa')
+
+-- Enable line numbers.
+vim.wo.number = true
+
+-- Relative line numbers.
+vim.wo.rnu = true
+
+-- Autoscroll editor with margin.
+vim.go.scrolloff = 4
+
+-- Scroll 1 line at a time.
+vim.go.mousescroll = 'ver:1,hor:1'
+
+-- Tab = 4 spaces.
+vim.o.expandtab = true
+vim.o.tabstop = 4
+vim.o.shiftwidth = 4
+
+-- Disable text wrap.
+vim.wo.wrap = false
+
+-- MacOS clipboard.
+vim.go.clipboard = 'unnamedplus'
+
+vim.o.guifont = 'Monaco:h12'
+
+-------------------------
+---     Keybinds      ---
+-------------------------
+
+-- Use space as the leader key.
+vim.g.mapleader = ' '
+
+--- telescope.nvim ---
+local telescope_builtin = require('telescope.builtin')
+
+-- TODO: see https://github.com/nvim-telescope/telescope.nvim?tab=readme-ov-file#default-mappings
+
