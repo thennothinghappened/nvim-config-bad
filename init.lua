@@ -1,3 +1,6 @@
+
+-- This config really needs to start from scratch, this is horrendous.
+
 require('plugins.lazy').setup({
     require('plugins.themes.themes'),
 
@@ -26,7 +29,8 @@ require('plugins.lazy').setup({
 
     require('plugins.gitsigns'),
 
-    require('plugins.whichkey')
+    require('plugins.whichkey'),
+
 })
 
 require('opts')

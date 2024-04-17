@@ -10,6 +10,7 @@ This is my config, even over a couple days work its already accumulated debt str
 so will probably be rewritten at some point, but it works for now(tm)
 
 ## Installation
+
 Install should work out of the box, assuming you already have NodeJS and Rust installed.
 ```
 $ git clone https://github.com/thennothinghappened/nvim-config-bad ~/.config/nvim
