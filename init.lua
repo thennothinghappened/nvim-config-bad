@@ -46,7 +46,7 @@ require('lazy').setup({
 
             require('nvim-treesitter.configs').setup({
                 ensure_installed = {
-                    'lua', 'javascript', 'html', 'css', 'c'
+                    'lua', 'javascript', 'html', 'css', 'c', 'php'
                 },
                 highlight = { enable = true },
                 indent = { enable = true },
@@ -117,6 +117,9 @@ vim.wo.wrap = false
 vim.go.clipboard = 'unnamedplus'
 
 vim.o.guifont = 'Monaco:h12'
+
+-- Disable mouse (for now)
+vim.o.mouse = ''
 
 -------------------------
 ---     Keybinds      ---
