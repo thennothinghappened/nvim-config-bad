@@ -105,8 +105,8 @@ vim.go.scrolloff = 4
 -- Scroll 1 line at a time.
 vim.go.mousescroll = 'ver:1,hor:1'
 
--- Tab = 4 spaces.
-vim.o.expandtab = true
+-- Tab = 4 chars.
+vim.o.expandtab = false
 vim.o.tabstop = 4
 vim.o.shiftwidth = 4
 
@@ -131,5 +131,10 @@ vim.g.mapleader = ' '
 --- telescope.nvim ---
 local telescope_builtin = require('telescope.builtin')
 
--- TODO: see https://github.com/nvim-telescope/telescope.nvim?tab=readme-ov-file#default-mappings
+vim.keymap.set('n', '<leader>f', telescope_builtin.find_files, {})
+vim.keymap.set('n', '<leader>g', telescope_builtin.live_grep, {})
+
+-- Escape terminal with esc.
+-- https://github.com/LunarVim/LunarVim/issues/4007#issuecomment-1501087398
+vim.keymap.set('t', '<esc>', '<C-\\><C-n>')
 
