@@ -24,14 +24,7 @@ require('lazy').setup({
     
     --- Themes ---
     {
-        'rebelot/kanagawa.nvim',
-    
-        opts = {
-            background = {
-                dark = 'wave'
-            },
-            dimInactive = false
-        }
+        'drewtempelmeyer/palenight.vim'
     },
 
     --- Language Support ---
@@ -91,7 +84,7 @@ require('lazy').setup({
 -------------------------
 
 vim.opt.background = 'dark'
-vim.cmd.colorscheme('kanagawa')
+vim.cmd.colorscheme('palenight')
 
 -- Enable line numbers.
 vim.wo.number = true

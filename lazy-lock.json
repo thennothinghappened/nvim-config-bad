@@ -1,7 +1,7 @@
 {
-  "kanagawa.nvim": { "branch": "master", "commit": "bfa818c7bf6259152f1d89cf9fbfba3554c93695" },
   "lazy.nvim": { "branch": "main", "commit": "31ddbea7c10b6920c9077b66c97951ca8682d5c8" },
   "nvim-treesitter": { "branch": "master", "commit": "3e10cffbb2a022cd8e2aaea9f4fffb514065e77c" },
+  "palenight.vim": { "branch": "master", "commit": "5552a6349bcd927df9f17db34f017b77b963e503" },
   "plenary.nvim": { "branch": "master", "commit": "8aad4396840be7fc42896e3011751b7609ca4119" },
   "ripgrep": { "branch": "master", "commit": "d922b7ac114c24d6800ae5f79d2967481f380c83" },
   "telescope.nvim": { "branch": "0.1.x", "commit": "6312868392331c9c0f22725041f1ec2bef57c751" }
