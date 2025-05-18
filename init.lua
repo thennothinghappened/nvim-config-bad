@@ -86,7 +86,17 @@ local lsp_servers = {
 		filetypes = {
 			"nasm"
 		},
-	}
+	},
+	bashls = {},
+	ts_ls = {
+		javascript = {
+			implicitProjectConfig = {
+				checkJs = true
+			}
+		}
+	},
+	jsonls = {},
+	cmake = {}
 }
 
 local lsp_server_names = {}
@@ -274,6 +284,7 @@ require('lazy').setup({
 
 vim.opt.background = 'dark'
 vim.cmd.colorscheme('palenight')
+vim.opt.termguicolors = true
 
 -- Enable line numbers.
 vim.wo.number = true
