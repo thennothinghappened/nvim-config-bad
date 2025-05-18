@@ -23,7 +23,6 @@ vim.opt.rtp:prepend(lazypath)
 
 --- Bindings when there's an LSP attached.
 local function lsp_binds(bufnr)
-    -- stolen from https://www.reddit.com/r/neovim/comments/uh4qss/how_to_enable_specific_keymaps_only_if_lsp_is/i74tvlh/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
     vim.keymap.set('n', '<leader>d', vim.lsp.buf.definition, { buffer = bufnr, desc = 'Go to Definition' })
     vim.keymap.set('n', '<leader>i', vim.lsp.buf.implementation, { buffer = bufnr, desc = 'Go to Implementation' })
     vim.keymap.set('n', '<leader>r', vim.lsp.buf.references, { buffer = bufnr, desc = 'Symbol References' })
