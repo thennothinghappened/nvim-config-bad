@@ -282,35 +282,18 @@ require('lazy').setup({
 
 vim.opt.background = 'dark'
 vim.cmd.colorscheme('palenight')
-vim.opt.termguicolors = true
-
--- Enable line numbers.
-vim.wo.number = true
-
--- Relative line numbers.
-vim.wo.rnu = true
-
--- Autoscroll editor with margin.
-vim.go.scrolloff = 4
-
--- Scroll 1 line at a time.
-vim.go.mousescroll = 'ver:1,hor:1'
-
--- Tab = 4 chars.
-vim.o.expandtab = false
-vim.o.tabstop = 4
-vim.o.shiftwidth = 4
-
--- Disable text wrap.
-vim.wo.wrap = false
-
--- MacOS clipboard.
-vim.go.clipboard = 'unnamedplus'
-
-vim.o.guifont = 'Monaco:h12'
-
--- Disable mouse (for now)
-vim.o.mouse = ''
+vim.opt.termguicolors = true		-- True-colour.
+vim.wo.number = true				-- Line numbers.
+vim.wo.rnu = true					-- Relative line numbers.
+vim.opt.colorcolumn = '80'			-- 80 char margin.
+vim.go.scrolloff = 4				-- Autoscroll 4 lines before edge.
+vim.o.expandtab = false				-- Indent with tabs.
+vim.o.tabstop = 4					-- Tab stops (aligning tabs) char distance.
+vim.o.shiftwidth = 4				-- Tab size.
+vim.wo.wrap = false					-- Word wrap.
+vim.go.clipboard = 'unnamedplus'	-- Use the system clipboard for yank.
+vim.o.mouse = ''					-- Disable the mouse.
+-- vim.go.mousescroll = 'ver:1,hor:1'	-- Mouse scroll speed.
 
 -------------------------
 ---     Keybinds      ---
@@ -328,5 +311,4 @@ vim.keymap.set('n', '<leader>g', telescope_builtin.live_grep, {})
 -- Escape terminal with esc.
 -- https://github.com/LunarVim/LunarVim/issues/4007#issuecomment-1501087398
 vim.keymap.set('t', '<esc>', '<C-\\><C-n>')
-
 
