@@ -22,7 +22,14 @@ vim.opt.rtp:prepend(lazypath)
 -------------------------
 
 --- Bindings when there's an LSP attached.
-local function lsp_binds(bufnr)
+local function lsp_on_attach(bufnr)
+
+	local hover = vim.lsp.buf.hover
+	vim.lsp.buf.hover = function()
+		--- @diagnostic disable-next-line: redundant-parameter
+		return hover({ border = 'single' })
+	end
+
     vim.keymap.set('n', '<leader>d', vim.lsp.buf.definition, { buffer = bufnr, desc = 'Go to Definition' })
     vim.keymap.set('n', '<leader>i', vim.lsp.buf.implementation, { buffer = bufnr, desc = 'Go to Implementation' })
     vim.keymap.set('n', '<leader>r', vim.lsp.buf.references, { buffer = bufnr, desc = 'Symbol References' })
@@ -33,40 +40,7 @@ local function lsp_binds(bufnr)
     vim.keymap.set('n', '<leader>[', vim.diagnostic.goto_prev, { buffer = bufnr, desc = 'Go to Next Diagnostic' })
     vim.keymap.set('n', '<leader>p', vim.diagnostic.open_float, { buffer = bufnr, desc = 'Show diagnistics for this line' })
     vim.keymap.set('n', '<leader>]', vim.diagnostic.goto_next, { buffer = bufnr, desc = 'Go to Previous Diagnostic' })
-end
 
-local function lsp_cmp_binds(cmp)
-
-    local luasnip = require('luasnip')
-
-    return cmp.mapping.preset.insert({
-        -- Trackpad-optimised scroll speed
-        ['<C-b>'] = cmp.mapping.scroll_docs(-1),
-        ['<C-f>'] = cmp.mapping.scroll_docs( 1),
-        ['<C-Enter>'] = cmp.mapping.complete(),
-        ['<C-e>'] = cmp.mapping.abort(),
-        -- Select the current choice on enter
-        ['<CR>'] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace }),
-        -- Scrolling options
-        ['<Tab>'] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-                cmp.select_next_item()
-            elseif luasnip.expand_or_locally_jumpable() then
-                luasnip.expand_or_jump()
-            else
-                fallback()
-            end
-        end, { 'i', 's' }),
-        ['<S-Tab>'] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-                cmp.select_prev_item()
-            elseif luasnip.locally_jumpable(-1) then
-                luasnip.jump(-1)
-            else
-                fallback()
-            end
-        end, { 'i', 's' }),
-    })
 end
 
 local lsp_servers = {
@@ -146,119 +120,132 @@ require('lazy').setup({
 		dependencies = { 'williamboman/mason.nvim' },
 
 		opts = {
-			ensure_installed = lsp_server_names
+			ensure_installed = lsp_server_names,
+			automatic_enable = false
 		}
 	},
 	{
 		'neovim/nvim-lspconfig',
 
-		dependencies = { 'williamboman/mason-lspconfig.nvim' },
+		opts = {
+			servers = lsp_servers
+		},
 
-		config = function()
+		dependencies = {
+			'williamboman/mason-lspconfig.nvim',
+			'Saghen/blink.cmp'
+		},
+
+		config = function(_, opts)
+
 			vim.diagnostic.config({
 				update_in_insert = true
 			})
+
+			local capabilities = require('blink.cmp').get_lsp_capabilities()
+			local lspconfig = require('lspconfig')
+
+			for server, config in pairs(opts.servers) do
+
+				local original_on_attach = config.on_attach
+				config.on_attach = function(_, bufnr)
+
+					lsp_on_attach(bufnr)
+
+					if original_on_attach ~= nil then
+						original_on_attach(server, bufnr)
+					end
+
+				end
+
+				config.capabilities = capabilities
+				lspconfig[server].setup(config)
+
+			end
+
 		end
 
 	},
 	{
-		'hrsh7th/nvim-cmp',
-
-		dependencies = {
-			'neovim/nvim-lspconfig',
-			'hrsh7th/cmp-nvim-lsp',
-			'hrsh7th/cmp-path',
-			'hrsh7th/cmp-cmdline',
-			'saadparwaiz1/cmp_luasnip',
-			{
-				'L3MON4D3/LuaSnip',
-
-				dependencies = {
-					'saadparwaiz1/cmp_luasnip',
-				},
-
-				config = function()
-					local luasnip = require('luasnip')
-
-					require('luasnip.loaders.from_vscode').lazy_load({
-						paths = {
-							vim.fn.stdpath('config') .. '/snippets',
-						}
-					})
-
-					luasnip.config.setup {}
-				end
-			},
-			'onsails/lspkind.nvim'
-		},
-
+		'xzbdmw/colorful-menu.nvim',
+		opts = {},
 		config = function()
-
-			local capabilities = require('cmp_nvim_lsp').default_capabilities()
-			local lspconfig = require('lspconfig')
-			local cmp = require('cmp')
-			local lspkind = require('lspkind')
-			local luasnip = require('luasnip')
-
-			local function on_attach(client, bufnr)
-				lsp_binds(bufnr)
-			end
-
-			-- Init servers
-			for server, config in pairs(lsp_servers) do
-				config.capabilities = capabilities
-				config.on_attach = on_attach
-				lspconfig[server].setup(config)
-			end
-
-			cmp.setup({
-				sources = {
-					{ name = 'nvim_lsp' },
-					{ name = 'path' },
-					{ name = 'luasnip' }
-				},
-
-				formatting = {
-					format = lspkind.cmp_format {
-						mode = 'symbol',
-						maxwidth = 50,
-						ellipsis_char = '...'
-					}
-				},
-
-				snippet = {
-					expand = function(args)
-						luasnip.lsp_expand(args.body)
-					end
-				},
-
-				mapping = lsp_cmp_binds(cmp)
-			})
-
-			cmp.setup.cmdline(':', {
-				mapping = cmp.mapping.preset.cmdline(),
-				sources = cmp.config.sources(
-				{
-					{ name = 'path' }
-				},
-				{
-					{ name = 'cmdline' }
-				})
-			})
+			
 		end
 	},
+	{
+		'Saghen/blink.cmp',
+		version = '1.*',
+		dependencies = { 'xzbdmw/colorful-menu.nvim' },
 
+		--- @module 'blink.cmp'
+		--- @type blink.cmp.Config
+		opts = {
+			keymap = {
+				preset = 'enter'
+			},
+			appearance = {
+				nerd_font_variant = 'mono'
+			},
+			completion = {
+				documentation = {
+					auto_show = true,
+					auto_show_delay_ms = 0
+				},
+			},
+			sources = {}
+		},
+
+		config = function(_, opts)
+
+			local colorfulMenu = require('colorful-menu')
+
+			opts.completion.menu = {
+				draw = {
+					columns = { { 'kind_icon' }, { 'label', gap = 1 } },
+            	    components = {
+            	        label = {
+            	            text = colorfulMenu.blink_components_text,
+            	            highlight = colorfulMenu.blink_components_highlight
+            	        },
+            	    },
+				}
+			}
+
+			local comment_types = {
+				'comment',
+				'line_comment',
+				'block_comment'
+			}
+
+			opts.sources.default = function(_)
+
+				local success, node = pcall(vim.treesitter.get_node)
+				if success and node then
+					if vim.tbl_contains(comment_types, node:type()) then
+						return { 'lsp' }
+					end
+				end
+
+				return { 'lsp', 'snippets', 'path' }
+
+			end
+
+			require('blink.cmp').setup(opts)
+
+		end
+	},
 	--- General Plugins ---
 	{
 		'nvim-telescope/telescope.nvim',
 		branch = '0.1.x',
-		
+
 		dependencies = {
 			'nvim-lua/plenary.nvim',
 			'BurntSushi/ripgrep',
 			'nvim-treesitter/nvim-treesitter'
 		},
-	
+
 		opts = {
 
 			defaults = {
