@@ -143,7 +143,7 @@ require('lazy').setup({
 			})
 
 			local capabilities = require('blink.cmp').get_lsp_capabilities()
-			local lspconfig = require('lspconfig')
+			local lspconfig = vim.lsp.config
 
 			for server, config in pairs(opts.servers) do
 
@@ -159,8 +159,8 @@ require('lazy').setup({
 				end
 
 				config.capabilities = capabilities
-				lspconfig[server].setup(config)
-
+				vim.lsp.enable(server)
+				vim.lsp.config(server, config)
 			end
 
 		end
