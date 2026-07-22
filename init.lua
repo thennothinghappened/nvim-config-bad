@@ -137,32 +137,28 @@ require('lazy').setup({
 		},
 
 		config = function(_, opts)
-
 			vim.diagnostic.config({
 				update_in_insert = true
 			})
 
 			local capabilities = require('blink.cmp').get_lsp_capabilities()
-			local lspconfig = vim.lsp.config
 
 			for server, config in pairs(opts.servers) do
-
 				local original_on_attach = config.on_attach
-				config.on_attach = function(_, bufnr)
 
+				config.on_attach = function(_, bufnr)
 					lsp_on_attach(bufnr)
 
 					if original_on_attach ~= nil then
 						original_on_attach(server, bufnr)
 					end
-
 				end
 
 				config.capabilities = capabilities
+
 				vim.lsp.enable(server)
 				vim.lsp.config(server, config)
 			end
-
 		end
 
 	},
