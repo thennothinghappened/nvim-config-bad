@@ -61,7 +61,7 @@ local lsp_servers = {
 		},
 	},
 	bashls = {},
-	ts_ls = {
+	tsc = {
 		javascript = {
 			implicitProjectConfig = {
 				checkJs = true
