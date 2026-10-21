@@ -72,6 +72,7 @@ local lsp_servers = {
 	cmake = {
 		filetypes = {"cmake", "CMakeLists.txt"}
 	},
+	csharp_ls = {},
 }
 
 local lsp_server_names = {}
