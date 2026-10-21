@@ -69,7 +69,9 @@ local lsp_servers = {
 		}
 	},
 	jsonls = {},
-	cmake = {}
+	cmake = {
+		filetypes = {"cmake", "CMakeLists.txt"}
+	},
 }
 
 local lsp_server_names = {}
