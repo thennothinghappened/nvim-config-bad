@@ -178,7 +178,7 @@ require('lazy').setup({
 		--- @type blink.cmp.Config
 		opts = {
 			keymap = {
-				preset = 'enter'
+				preset = 'default'
 			},
 			appearance = {
 				nerd_font_variant = 'mono'
