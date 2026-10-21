@@ -40,6 +40,7 @@ local function lsp_on_attach(bufnr)
     vim.keymap.set('n', '<leader>[', vim.diagnostic.goto_prev, { buffer = bufnr, desc = 'Go to Next Diagnostic' })
     vim.keymap.set('n', '<leader>p', vim.diagnostic.open_float, { buffer = bufnr, desc = 'Show diagnistics for this line' })
     vim.keymap.set('n', '<leader>]', vim.diagnostic.goto_next, { buffer = bufnr, desc = 'Go to Previous Diagnostic' })
+	vim.keymap.set('v', '<leader>F', vim.lsp.buf.format, { buffer = bufnr, desc = 'Format selection' })
 
 end
 
