@@ -93,24 +93,22 @@ require('lazy').setup({
 	--- Language Support ---
 	{
 		'nvim-treesitter/nvim-treesitter',
-
+		branch = 'main',
+		lazy = false,
 		build = ':TSUpdate',
 		event = { 'BufReadPost', 'BufNewFile' },
 		cmd = { 'TSUpdateSync' },
 
 		config = function()
-
-			require('nvim-treesitter.configs').setup({
-				ensure_installed = {
-					'lua', 'javascript', 'html', 'css', 'c', 'php'
-				},
-				highlight = { enable = true },
-				indent = { enable = true },
-			})
-	
-			-- Prioritise Treesitter highlighting over LSP.
-			vim.highlight.priorities.semantic_tokens = 99
-
+			require('nvim-treesitter').install {
+				'lua',
+				'javascript',
+				'html',
+				'css',
+				'c',
+				'php',
+				'json',
+			}
 		end
 	},
 	{
@@ -237,7 +235,7 @@ require('lazy').setup({
 	--- General Plugins ---
 	{
 		'nvim-telescope/telescope.nvim',
-		branch = '0.1.x',
+		version = '*',
 
 		dependencies = {
 			'nvim-lua/plenary.nvim',
